@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savora — Restaurant & Food Landing Template</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+    *, *::before, *::after { margin:0;padding:0;box-sizing:border-box; }
+    :root {
+        --bg:#0c0a08;--surface:#141210;--card:#1a1816;--border:#2a2520;--border-h:#3a3530;
+        --text:#f5f0e8;--muted:#a09888;--dim:#706858;
+        --gold:#d4a853;--gold-l:#e8c878;--warm:#ff6b35;
+        --serif:'Playfair Display',Georgia,serif;--sans:'Inter',-apple-system,sans-serif;
+    }
+    html{scroll-behavior:smooth}body{font-family:var(--sans);background:var(--bg);color:var(--text);overflow-x:hidden}
+    a{text-decoration:none;color:inherit}.container{max-width:1100px;margin:0 auto;padding:0 24px}
+
+    /* NAV */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 0;background:rgba(12,10,8,0.85);backdrop-filter:blur(16px)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between}
+    .brand{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--gold)}
+    .nav-links{display:flex;gap:28px;align-items:center}
+    .nav-links a{font-size:0.88rem;color:var(--muted);font-weight:500;transition:color 0.2s}
+    .nav-links a:hover{color:var(--text)}
+    .reserve-btn{padding:9px 22px;border-radius:8px;background:var(--gold);color:#0c0a08;font-weight:600;font-size:0.85rem;transition:all 0.2s}
+    .reserve-btn:hover{background:var(--gold-l);transform:translateY(-1px)}
+
+    /* HERO */
+    .hero{padding:160px 0 80px;text-align:center;position:relative}
+    .hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(212,168,83,0.08),transparent 70%);pointer-events:none}
+    .hero-tag{display:inline-block;padding:5px 16px;border-radius:100px;border:1px solid rgba(212,168,83,0.3);color:var(--gold);font-size:0.8rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:28px}
+    .hero h1{font-family:var(--serif);font-size:clamp(2.5rem,6vw,4.5rem);font-weight:700;line-height:1.1;margin-bottom:20px}
+    .hero h1 em{font-style:italic;color:var(--gold)}
+    .hero-sub{font-size:1.05rem;color:var(--muted);max-width:500px;margin:0 auto 36px;line-height:1.7}
+    .hero-btns{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:48px}
+    .btn-gold{padding:13px 30px;border-radius:10px;background:var(--gold);color:#0c0a08;font-weight:600;font-size:0.95rem;transition:all 0.2s}
+    .btn-gold:hover{background:var(--gold-l);transform:translateY(-2px);box-shadow:0 6px 24px rgba(212,168,83,0.25)}
+    .btn-out{padding:13px 28px;border-radius:10px;border:1px solid var(--border);color:var(--muted);font-weight:500;font-size:0.95rem;transition:all 0.2s}
+    .btn-out:hover{border-color:var(--gold);color:var(--text)}
+    .hero-hours{font-size:0.85rem;color:var(--dim)}
+
+    /* IMAGE PLACEHOLDER */
+    .img-section{padding:40px 0 80px}.img-placeholder{width:100%;height:400px;border-radius:20px;background:linear-gradient(135deg,var(--card),var(--surface));border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--dim);overflow:hidden;position:relative}
+    .img-placeholder::after{content:'📸 Your Hero Image Here';position:absolute}
+
+    /* FEATURES */
+    .features{padding:80px 0;text-align:center}
+    .section-tag{display:inline-block;color:var(--gold);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-bottom:14px}
+    .features h2{font-family:var(--serif);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;margin-bottom:48px}
+    .f-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .f-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;text-align:left;transition:all 0.3s}
+    .f-card:hover{border-color:var(--gold);transform:translateY(-3px)}
+    .f-emoji{font-size:2rem;margin-bottom:16px}
+    .f-card h3{font-family:var(--serif);font-size:1.15rem;margin-bottom:8px}
+    .f-card p{font-size:0.88rem;color:var(--muted);line-height:1.7}
+
+    /* MENU PREVIEW */
+    .menu-section{padding:80px 0;text-align:center}
+    .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px;text-align:left}
+    .menu-item{display:flex;justify-content:space-between;align-items:baseline;padding:16px 20px;border-radius:12px;background:var(--card);border:1px solid var(--border);transition:border-color 0.3s}
+    .menu-item:hover{border-color:var(--border-h)}
+    .menu-name{font-family:var(--serif);font-weight:600;font-size:1rem}
+    .menu-desc{font-size:0.8rem;color:var(--dim);margin-top:2px}
+    .menu-price{font-family:var(--serif);font-weight:700;color:var(--gold);font-size:1.1rem;white-space:nowrap}
+
+    /* CTA */
+    .cta{padding:80px 0}
+    .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:64px 32px;position:relative;overflow:hidden}
+    .cta-box::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:300px;height:300px;background:radial-gradient(circle,rgba(212,168,83,0.08),transparent);pointer-events:none}
+    .cta-box h2{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:14px;position:relative}
+    .cta-box p{color:var(--muted);margin-bottom:28px;position:relative}
+
+    /* FOOTER */
+    .footer{padding:40px 0;border-top:1px solid var(--border);text-align:center;font-size:0.82rem;color:var(--dim)}
+    .footer .brand{font-size:1.2rem;margin-bottom:8px;display:block}
+
+    @media(max-width:768px){.nav-links a:not(.reserve-btn){display:none}.f-grid,.menu-grid{grid-template-columns:1fr}.img-placeholder{height:240px}}
+    </style>
+</head>
+<body>
+    <nav class="nav"><div class="container nav-inner"><div class="brand">Savora</div><div class="nav-links"><a href="#menu">Menu</a><a href="#about">About</a><a href="#" class="reserve-btn">Reserve a Table</a></div></div></nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-tag">✨ Fine Dining Experience</div>
+            <h1>Where Flavor Meets<br><em>Elegance</em></h1>
+            <p class="hero-sub">Experience culinary artistry crafted with locally-sourced ingredients and passion. Every dish tells a story.</p>
+            <div class="hero-btns">
+                <a href="#" class="btn-gold">Reserve Your Table</a>
+                <a href="#menu" class="btn-out">View Menu</a>
+            </div>
+            <p class="hero-hours">Open Daily · 11:00 AM — 11:00 PM</p>
+        </div>
+    </section>
+
+    <section class="img-section"><div class="container"><div class="img-placeholder"></div></div></section>
+
+    <section class="features" id="about">
+        <div class="container">
+            <div class="section-tag">Why Savora</div>
+            <h2>A Dining Experience Like No Other</h2>
+            <div class="f-grid">
+                <div class="f-card"><div class="f-emoji">🌿</div><h3>Farm to Table</h3><p>We source ingredients from local organic farms, ensuring the freshest flavors in every bite.</p></div>
+                <div class="f-card"><div class="f-emoji">👨‍🍳</div><h3>Award-Winning Chefs</h3><p>Our culinary team brings Michelin-star experience with innovative techniques and global inspiration.</p></div>
+                <div class="f-card"><div class="f-emoji">🍷</div><h3>Curated Wine Cellar</h3><p>Over 300 wines from world-renowned vineyards, hand-selected by our sommelier.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="menu-section" id="menu">
+        <div class="container">
+            <div class="section-tag">Our Menu</div>
+            <h2>Signature Dishes</h2>
+            <div class="menu-grid">
+                <div class="menu-item"><div><div class="menu-name">Truffle Risotto</div><div class="menu-desc">Arborio rice, black truffle, parmesan</div></div><div class="menu-price">$38</div></div>
+                <div class="menu-item"><div><div class="menu-name">Wagyu Steak</div><div class="menu-desc">A5 Japanese wagyu, seasonal vegetables</div></div><div class="menu-price">$85</div></div>
+                <div class="menu-item"><div><div class="menu-name">Seared Scallops</div><div class="menu-desc">Cauliflower purée, brown butter, capers</div></div><div class="menu-price">$42</div></div>
+                <div class="menu-item"><div><div class="menu-name">Lobster Thermidor</div><div class="menu-desc">Fresh Maine lobster, gruyère, brandy cream</div></div><div class="menu-price">$65</div></div>
+                <div class="menu-item"><div><div class="menu-name">Duck Confit</div><div class="menu-desc">Slow-cooked leg, cherry gastrique, lentils</div></div><div class="menu-price">$36</div></div>
+                <div class="menu-item"><div><div class="menu-name">Crème Brûlée</div><div class="menu-desc">Tahitian vanilla, caramelized sugar crust</div></div><div class="menu-price">$16</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta"><div class="container"><div class="cta-box"><h2>Ready for an Unforgettable Evening?</h2><p>Book your table today and experience Savora.</p><a href="#" class="btn-gold">Make a Reservation</a></div></div></section>
+
+    <footer class="footer"><div class="container"><div class="brand">Savora</div><p>123 Culinary Avenue · New York, NY 10001 · (212) 555-0198</p><p style="margin-top:16px">© 2026 Savora. All rights reserved.</p></div></footer>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — EcomGenius</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="sidebar-logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">EcomGenius</span>
+            </a>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-group">
+                <span class="nav-group-label">AI Tools</span>
+                <button class="sidebar-btn active" data-tool="descriptions" id="tool-descriptions">
+                    <span class="sidebar-icon">📝</span>
+                    <span>Product Descriptions</span>
+                </button>
+                <button class="sidebar-btn" data-tool="adcopy" id="tool-adcopy">
+                    <span class="sidebar-icon">📢</span>
+                    <span>Ad Copy</span>
+                </button>
+                <button class="sidebar-btn" data-tool="seo" id="tool-seo">
+                    <span class="sidebar-icon">🔍</span>
+                    <span>SEO Optimizer</span>
+                </button>
+                <button class="sidebar-btn" data-tool="emails" id="tool-emails">
+                    <span class="sidebar-icon">📧</span>
+                    <span>Email Sequences</span>
+                </button>
+                <button class="sidebar-btn" data-tool="brandname" id="tool-brandname">
+                    <span class="sidebar-icon">💡</span>
+                    <span>Brand Name Gen</span>
+                </button>
+                <button class="sidebar-btn" data-tool="social" id="tool-social">
+                    <span class="sidebar-icon">📱</span>
+                    <span>Social Media</span>
+                </button>
+            </div>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="usage-card">
+                <div class="usage-label">Free Plan — <span id="usageCount">0</span>/5 used</div>
+                <div class="usage-bar"><div class="usage-fill" id="usageFill" style="width: 0%"></div></div>
+                <a href="#" class="upgrade-link">Upgrade to Pro →</a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Bar -->
+        <header class="topbar">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">☰</button>
+            <div class="topbar-title" id="topbarTitle">📝 Product Description Generator</div>
+            <div class="topbar-actions">
+                <div class="api-status" id="apiStatus">
+                    <span class="status-dot offline"></span>
+                    <span class="status-text">API Key Required</span>
+                </div>
+                <button class="btn-icon" id="settingsBtn" title="Settings">⚙️</button>
+            </div>
+        </header>
+
+        <!-- Settings Modal -->
+        <div class="modal-overlay" id="settingsModal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>⚙️ Settings</h3>
+                    <button class="modal-close" id="closeSettings">×</button>
+                </div>
+                <div class="modal-body">
+                    <label class="form-label">OpenRouter API Key</label>
+                    <input type="password" class="form-input" id="apiKeyInput" placeholder="sk-or-v1-...">
+                    <p class="form-hint">Your key is stored locally in your browser. Never shared.</p>
+                    <label class="form-label" style="margin-top:16px;">AI Model</label>
+                    <select class="form-input" id="modelSelect">
+                        <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet (Recommended)</option>
+                        <option value="openai/gpt-4o">GPT-4o</option>
+                        <option value="openai/gpt-4o-mini">GPT-4o Mini (Faster)</option>
+                        <option value="meta-llama/llama-3-70b-instruct">Llama 3 70B (Free)</option>
+                    </select>
+                    <button class="btn btn-primary" id="saveSettings" style="margin-top:20px;width:100%;">Save Settings</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Input Panel -->
+            <div class="panel input-panel">
+                <div class="panel-header">
+                    <h3 id="inputTitle">Product Details</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group" id="field-productName">
+                        <label class="form-label">Product Name *</label>
+                        <input type="text" class="form-input" id="productName" placeholder="e.g. Wireless Bluetooth Earbuds Pro X3">
+                    </div>
+                    <div class="form-group" id="field-category">
+                        <label class="form-label">Category</label>
+                        <input type="text" class="form-input" id="category" placeholder="e.g. Electronics, Fashion, Home & Garden">
+                    </div>
+                    <div class="form-group" id="field-features">
+                        <label class="form-label">Key Features / Details *</label>
+                        <textarea class="form-textarea" id="features" rows="4" placeholder="e.g. Active noise cancellation, 36-hour battery, IPX5 waterproof, Bluetooth 5.3..."></textarea>
+                    </div>
+                    <div class="form-group" id="field-audience">
+                        <label class="form-label">Target Audience</label>
+                        <input type="text" class="form-input" id="audience" placeholder="e.g. Young professionals, fitness enthusiasts, gamers">
+                    </div>
+                    <div class="form-group" id="field-tone">
+                        <label class="form-label">Tone</label>
+                        <div class="tone-chips">
+                            <button class="chip active" data-tone="professional">Professional</button>
+                            <button class="chip" data-tone="casual">Casual</button>
+                            <button class="chip" data-tone="luxury">Luxury</button>
+                            <button class="chip" data-tone="playful">Playful</button>
+                            <button class="chip" data-tone="urgency">Urgency</button>
+                        </div>
+                    </div>
+                    <!-- Tool-specific fields -->
+                    <div class="form-group tool-field" id="field-platform" style="display:none;">
+                        <label class="form-label">Platform</label>
+                        <div class="tone-chips" id="platformChips">
+                            <button class="chip active" data-platform="facebook">Facebook</button>
+                            <button class="chip" data-platform="google">Google</button>
+                            <button class="chip" data-platform="tiktok">TikTok</button>
+                            <button class="chip" data-platform="instagram">Instagram</button>
+                        </div>
+                    </div>
+                    <div class="form-group tool-field" id="field-emailType" style="display:none;">
+                        <label class="form-label">Email Type</label>
+                        <div class="tone-chips" id="emailTypeChips">
+                            <button class="chip active" data-email="welcome">Welcome Series</button>
+                            <button class="chip" data-email="abandoned">Abandoned Cart</button>
+                            <button class="chip" data-email="promo">Promotional</button>
+                            <button class="chip" data-email="launch">Product Launch</button>
+                        </div>
+                    </div>
+                    <div class="form-group tool-field" id="field-brandInfo" style="display:none;">
+                        <label class="form-label">Business Description</label>
+                        <textarea class="form-textarea" id="brandInfo" rows="3" placeholder="Describe your business, values, and what makes you unique..."></textarea>
+                    </div>
+
+                    <button class="btn btn-primary btn-generate" id="generateBtn">
+                        <span class="btn-text">✨ Generate Content</span>
+                        <span class="btn-loading" style="display:none;">
+                            <span class="spinner"></span> Generating...
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Output Panel -->
+            <div class="panel output-panel">
+                <div class="panel-header">
+                    <h3>Generated Content</h3>
+                    <div class="panel-actions">
+                        <button class="btn-sm" id="copyBtn" title="Copy" style="display:none;">📋 Copy</button>
+                        <button class="btn-sm" id="regenerateBtn" title="Regenerate" style="display:none;">🔄 Retry</button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="output-placeholder" id="outputPlaceholder">
+                        <div class="placeholder-icon">✨</div>
+                        <h4>Your AI-generated content will appear here</h4>
+                        <p>Fill in the product details and click "Generate" to get started.</p>
+                    </div>
+                    <div class="output-content" id="outputContent" style="display:none;">
+                        <div class="output-text" id="outputText"></div>
+                    </div>
+                    <div class="output-error" id="outputError" style="display:none;">
+                        <div class="error-icon">⚠️</div>
+                        <p id="errorText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

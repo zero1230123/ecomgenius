@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI E-Commerce Expert — Shopify, AI Agents & Automation</title>
+    <meta name="description" content="I build Shopify stores, AI chatbots, and e-commerce automation systems. Let me grow your online business with cutting-edge technology.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{--bg:#07070d;--surface:#0d0d16;--card:#12121c;--border:#1c1c2e;--border-h:#2c2c44;--text:#f0f0fa;--muted:#8888a8;--dim:#55556a;--blue:#3b82f6;--blue-l:#60a5fa;--cyan:#06b6d4;--g:linear-gradient(135deg,#3b82f6,#06b6d4);--font:'Inter',-apple-system,sans-serif;--mono:'JetBrains Mono',monospace}
+    body{font-family:var(--font);background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+    a{text-decoration:none;color:inherit}.container{max-width:1060px;margin:0 auto;padding:0 24px}
+    .accent{background:var(--g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 0;background:rgba(7,7,13,0.85);backdrop-filter:blur(16px);border-bottom:1px solid transparent}
+    .nav-i{display:flex;align-items:center;justify-content:space-between}
+    .n-logo{font-weight:800;font-size:1.1rem}.n-logo span{color:var(--blue-l)}
+    .nav-l{display:flex;align-items:center;gap:24px}
+    .nav-l a{font-size:0.88rem;color:var(--muted);font-weight:500;transition:color 0.2s}.nav-l a:hover{color:var(--text)}
+    .hire-btn{padding:9px 22px;border-radius:8px;background:var(--g);color:#fff;font-weight:600;font-size:0.85rem;transition:all 0.2s}
+    .hire-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(59,130,246,0.3)}
+
+    /* HERO */
+    .hero{padding:150px 0 80px;text-align:center;position:relative}
+    .hero::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(59,130,246,0.08),transparent 70%);pointer-events:none}
+    .avatar{width:90px;height:90px;border-radius:50%;background:var(--g);display:flex;align-items:center;justify-content:center;font-size:2.2rem;margin:0 auto 24px;box-shadow:0 0 40px rgba(59,130,246,0.2);border:3px solid var(--card)}
+    .avail{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:100px;border:1px solid rgba(16,185,129,0.3);color:#10b981;font-size:0.78rem;font-weight:500;margin-bottom:24px}
+    .avail-dot{width:6px;height:6px;border-radius:50%;background:#10b981;animation:pulse 2s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+    .hero h1{font-size:clamp(2rem,5vw,3.4rem);font-weight:800;line-height:1.1;letter-spacing:-0.03em;margin-bottom:18px}
+    .hero-sub{font-size:1.05rem;color:var(--muted);max-width:540px;margin:0 auto 32px;line-height:1.7}
+    .hero-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:40px}
+    .btn-b{padding:13px 28px;border-radius:10px;background:var(--g);color:#fff;font-weight:600;transition:all 0.2s}
+    .btn-b:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(59,130,246,0.3)}
+    .btn-o{padding:13px 26px;border-radius:10px;border:1px solid var(--border);color:var(--muted);font-weight:500;transition:all 0.2s}
+    .btn-o:hover{border-color:var(--blue);color:var(--text)}
+    .h-tech{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+    .tech{padding:6px 14px;border-radius:8px;background:var(--card);border:1px solid var(--border);font-size:0.8rem;color:var(--muted);font-weight:500}
+
+    /* SERVICES */
+    .services{padding:80px 0;text-align:center}
+    .stag{color:var(--blue-l);font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-bottom:14px}
+    .services h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:40px}
+    .s-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .s-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;text-align:left;transition:all 0.3s}
+    .s-card:hover{border-color:var(--blue);transform:translateY(-3px)}
+    .s-icon{font-size:1.8rem;margin-bottom:14px}
+    .s-card h3{font-size:1.05rem;font-weight:700;margin-bottom:6px}
+    .s-card p{font-size:0.85rem;color:var(--muted);line-height:1.6;margin-bottom:12px}
+    .s-price{font-family:var(--mono);font-weight:600;color:var(--blue-l);font-size:0.9rem}
+
+    /* PORTFOLIO */
+    .portfolio{padding:80px 0;text-align:center}
+    .portfolio h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:40px}
+    .port-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+    .port-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all 0.3s}
+    .port-card:hover{border-color:var(--border-h);transform:translateY(-2px)}
+    .port-img{height:180px;background:linear-gradient(135deg,rgba(59,130,246,0.1),rgba(6,182,212,0.1));display:flex;align-items:center;justify-content:center;font-size:2.5rem;border-bottom:1px solid var(--border)}
+    .port-info{padding:20px}
+    .port-info h3{font-size:1rem;font-weight:700;margin-bottom:4px}
+    .port-info p{font-size:0.82rem;color:var(--muted)}
+    .port-tags{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+    .port-tag{padding:3px 10px;border-radius:100px;background:rgba(59,130,246,0.1);color:var(--blue-l);font-size:0.7rem;font-weight:500}
+
+    /* TESTIMONIALS */
+    .testimonials{padding:80px 0;text-align:center}
+    .testimonials h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:40px}
+    .t-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+    .t-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:left}
+    .t-stars{color:#f59e0b;font-size:0.9rem;margin-bottom:12px;letter-spacing:2px}
+    .t-text{font-size:0.9rem;color:var(--muted);line-height:1.7;font-style:italic;margin-bottom:14px}
+    .t-author{display:flex;align-items:center;gap:10px}
+    .t-av{width:36px;height:36px;border-radius:50%;background:var(--g);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#fff}
+    .t-name{font-weight:600;font-size:0.88rem}.t-role{font-size:0.78rem;color:var(--dim)}
+
+    /* CTA */
+    .cta{padding:80px 0}
+    .cta-box{text-align:center;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:56px 32px;position:relative;overflow:hidden}
+    .cta-box::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:300px;height:300px;background:radial-gradient(circle,rgba(59,130,246,0.08),transparent);pointer-events:none}
+    .cta-box h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;margin-bottom:12px;position:relative}
+    .cta-box p{color:var(--muted);margin-bottom:24px;position:relative}
+    .cta-box .btn-b{position:relative}
+    .contact-info{margin-top:20px;font-size:0.85rem;color:var(--dim);position:relative}
+
+    /* FOOTER */
+    footer{padding:32px 0;border-top:1px solid var(--border);text-align:center;font-size:0.8rem;color:var(--dim)}
+
+    @media(max-width:768px){.s-grid,.port-grid,.t-grid{grid-template-columns:1fr}.nav-l a:not(.hire-btn){display:none}.h-tech{gap:8px}}
+    </style>
+</head>
+<body>
+    <nav><div class="container nav-i"><div class="n-logo">YOUR<span>NAME</span></div><div class="nav-l"><a href="#services">Services</a><a href="#work">Work</a><a href="#contact" class="hire-btn">Hire Me</a></div></div></nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="avatar">👨‍💻</div>
+            <div class="avail"><span class="avail-dot"></span> Available for projects</div>
+            <h1>I Build <span class="accent">AI-Powered</span><br>E-Commerce Systems</h1>
+            <p class="hero-sub">Shopify stores, AI chatbots, content automation, and custom tools that help online businesses sell more and work less.</p>
+            <div class="hero-btns"><a href="#contact" class="btn-b">Let's Work Together</a><a href="#work" class="btn-o">View My Work</a></div>
+            <div class="h-tech">
+                <span class="tech">Shopify</span><span class="tech">AI / GPT</span><span class="tech">Python</span>
+                <span class="tech">JavaScript</span><span class="tech">Node.js</span><span class="tech">Automation</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services"><div class="container">
+        <div class="stag">Services</div>
+        <h2>What I Can <span class="accent">Build For You</span></h2>
+        <div class="s-grid">
+            <div class="s-card"><div class="s-icon">🛒</div><h3>Shopify Store Setup</h3><p>Complete store build with custom theme, product listings, payment setup, and conversion optimization.</p><div class="s-price">From $200</div></div>
+            <div class="s-card"><div class="s-icon">🤖</div><h3>AI Chatbot Integration</h3><p>Custom AI customer service agent that handles inquiries, processes orders, and escalates when needed.</p><div class="s-price">From $300</div></div>
+            <div class="s-card"><div class="s-icon">⚡</div><h3>Content Automation</h3><p>AI-powered systems that auto-generate product descriptions, ad copy, SEO content, and social posts.</p><div class="s-price">From $250</div></div>
+        </div>
+    </div></section>
+
+    <section class="portfolio" id="work"><div class="container">
+        <div class="stag">Portfolio</div>
+        <h2>Recent <span class="accent">Projects</span></h2>
+        <div class="port-grid">
+            <div class="port-card"><div class="port-img">🏪</div><div class="port-info"><h3>Offers Nar — Hypermarket Theme</h3><p>Custom Shopify theme with RTL support, mega menu, and countdown timers.</p><div class="port-tags"><span class="port-tag">Shopify</span><span class="port-tag">Liquid</span><span class="port-tag">AR/EN</span></div></div></div>
+            <div class="port-card"><div class="port-img">🤖</div><div class="port-info"><h3>AI Customer Service Agent</h3><p>Bilingual voice agent with sentiment analysis, knowledge base, and smart escalation.</p><div class="port-tags"><span class="port-tag">AI</span><span class="port-tag">ElevenLabs</span><span class="port-tag">Python</span></div></div></div>
+            <div class="port-card"><div class="port-img">📊</div><div class="port-info"><h3>E-Commerce Intelligence Suite</h3><p>Multi-agent AI system for market research, competitor analysis, and strategy generation.</p><div class="port-tags"><span class="port-tag">AI Agents</span><span class="port-tag">FastAPI</span><span class="port-tag">React</span></div></div></div>
+            <div class="port-card"><div class="port-img">⚡</div><div class="port-info"><h3>EcomGenius — AI Content SaaS</h3><p>Web app generating product descriptions, ad copy, SEO content, and email sequences.</p><div class="port-tags"><span class="port-tag">SaaS</span><span class="port-tag">OpenRouter</span><span class="port-tag">JS</span></div></div></div>
+        </div>
+    </div></section>
+
+    <section class="testimonials"><div class="container">
+        <div class="stag">Testimonials</div>
+        <h2>Client <span class="accent">Reviews</span></h2>
+        <div class="t-grid">
+            <div class="t-card"><div class="t-stars">★★★★★</div><p class="t-text">"Incredible work on our Shopify store. Sales increased 45% in the first month after launch. Highly recommend!"</p><div class="t-author"><div class="t-av">AK</div><div><div class="t-name">Ahmed K.</div><div class="t-role">Store Owner</div></div></div></div>
+            <div class="t-card"><div class="t-stars">★★★★★</div><p class="t-text">"The AI chatbot handles 80% of our customer inquiries automatically. It's like having an extra team member 24/7."</p><div class="t-author"><div class="t-av">LP</div><div><div class="t-name">Lisa P.</div><div class="t-role">E-commerce Manager</div></div></div></div>
+        </div>
+    </div></section>
+
+    <section class="cta" id="contact"><div class="container"><div class="cta-box">
+        <h2>Ready to <span class="accent">Level Up</span> Your Store?</h2>
+        <p>Let's discuss your project and build something amazing together.</p>
+        <a href="mailto:your@email.com" class="btn-b">Get in Touch →</a>
+        <p class="contact-info">📧 your@email.com · 💬 Available on WhatsApp</p>
+    </div></div></section>
+
+    <footer><div class="container"><p>© 2026 YOURNAME. All rights reserved.</p></div></footer>
+</body>
+</html>
