@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog — EcomGenius | AI E-Commerce Tips & Guides</title>
+    <meta name="description" content="Expert guides on AI-powered product descriptions, Facebook ads, Shopify SEO, and e-commerce growth strategies.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--bg:#07070e;--surface:#0d0d16;--card:#111119;--border:#1c1c2e;--text:#f0f0fa;--muted:#8888a8;--dim:#55556a;--primary:#8b5cf6;--cyan:#06b6d4;--green:#10b981;--font:'Inter',sans-serif}
+    body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7}
+    .container{max-width:900px;margin:0 auto;padding:0 20px}
+
+    /* Nav */
+    .blog-nav{padding:20px 0;border-bottom:1px solid var(--border);margin-bottom:60px}
+    .blog-nav .container{display:flex;align-items:center;justify-content:space-between}
+    .blog-nav a.logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--text);font-weight:800;font-size:1.2rem}
+    .blog-nav .nav-links{display:flex;gap:24px}
+    .blog-nav .nav-links a{color:var(--muted);text-decoration:none;font-size:0.9rem;font-weight:500;transition:color 0.2s}
+    .blog-nav .nav-links a:hover{color:var(--text)}
+
+    /* Header */
+    .blog-header{text-align:center;margin-bottom:60px}
+    .blog-header .badge{display:inline-block;background:rgba(139,92,246,0.15);color:var(--primary);padding:4px 14px;border-radius:100px;font-size:0.82rem;font-weight:600;margin-bottom:16px}
+    .blog-header h1{font-size:2.8rem;font-weight:900;margin-bottom:12px;background:linear-gradient(135deg,#8b5cf6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .blog-header p{color:var(--muted);font-size:1.1rem;max-width:550px;margin:0 auto}
+
+    /* Articles Grid */
+    .articles-grid{display:grid;grid-template-columns:1fr;gap:28px;margin-bottom:80px}
+    .article-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all 0.3s;cursor:pointer;text-decoration:none;color:var(--text)}
+    .article-card:hover{border-color:var(--primary);transform:translateY(-4px);box-shadow:0 12px 40px rgba(139,92,246,0.1)}
+    .article-body{padding:28px 28px 24px}
+    .article-tag{display:inline-block;padding:3px 10px;border-radius:6px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:14px}
+    .tag-ai{background:rgba(139,92,246,0.15);color:#a78bfa}
+    .tag-seo{background:rgba(16,185,129,0.15);color:#34d399}
+    .tag-ads{background:rgba(6,182,212,0.15);color:#22d3ee}
+    .article-card h2{font-size:1.35rem;font-weight:700;margin-bottom:10px;line-height:1.4}
+    .article-card p{color:var(--muted);font-size:0.92rem;margin-bottom:16px;line-height:1.6}
+    .article-meta{display:flex;align-items:center;gap:12px;font-size:0.8rem;color:var(--dim)}
+    .article-meta .dot{width:3px;height:3px;border-radius:50%;background:var(--dim)}
+    .read-more{color:var(--primary);font-weight:600;font-size:0.88rem;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+
+    /* CTA */
+    .blog-cta{text-align:center;padding:48px 32px;background:var(--card);border:1px solid var(--border);border-radius:16px;margin-bottom:60px}
+    .blog-cta h3{font-size:1.5rem;margin-bottom:10px}
+    .blog-cta p{color:var(--muted);margin-bottom:20px}
+    .blog-cta .btn{display:inline-block;padding:12px 28px;background:linear-gradient(135deg,#8b5cf6,#06b6d4);color:#fff;border-radius:10px;font-weight:700;text-decoration:none;transition:all 0.2s}
+    .blog-cta .btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(139,92,246,0.3)}
+
+    .footer{text-align:center;padding:30px 0;border-top:1px solid var(--border);color:var(--dim);font-size:0.82rem}
+    .footer a{color:var(--muted);text-decoration:none}
+
+    @media(max-width:600px){.blog-header h1{font-size:1.8rem}.blog-nav .nav-links{gap:14px}}
+    </style>
+</head>
+<body>
+    <nav class="blog-nav">
+        <div class="container">
+            <a href="index.html" class="logo">⚡ EcomGenius</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="free-prompts.html">Free Prompts</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="blog-header">
+            <div class="badge">📚 Blog</div>
+            <h1>E-Commerce Growth Lab</h1>
+            <p>Expert guides on AI copywriting, SEO, Facebook ads, and scaling your online store to 6 figures.</p>
+        </div>
+
+        <div class="articles-grid">
+            <a href="blog/ai-product-descriptions.html" class="article-card">
+                <div class="article-body">
+                    <div class="article-tag tag-ai">AI Copywriting</div>
+                    <h2>How to Write Product Descriptions That Sell: The Ultimate AI Guide (2026)</h2>
+                    <p>Learn the AIDA framework, Apple-style copywriting, and how AI tools are helping Shopify sellers increase conversions by 34%. Includes free templates.</p>
+                    <div class="article-meta">
+                        <span>12 min read</span>
+                        <span class="dot"></span>
+                        <span>May 2026</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="blog/facebook-ads-ecommerce.html" class="article-card">
+                <div class="article-body">
+                    <div class="article-tag tag-ads">Facebook Ads</div>
+                    <h2>10 Facebook Ad Copy Templates for E-Commerce (Steal These Today)</h2>
+                    <p>Battle-tested ad copy frameworks used by 7-figure Shopify stores. PAS, Social Proof, FOMO — all with real examples you can copy-paste.</p>
+                    <div class="article-meta">
+                        <span>15 min read</span>
+                        <span class="dot"></span>
+                        <span>May 2026</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="blog/seo-shopify-guide.html" class="article-card">
+                <div class="article-body">
+                    <div class="article-tag tag-seo">Shopify SEO</div>
+                    <h2>The Ultimate Shopify SEO Checklist: Rank Higher & Get Free Traffic (2026)</h2>
+                    <p>From meta titles to image alt tags, schema markup to site speed — the complete checklist to dominate Google search as a Shopify store owner.</p>
+                    <div class="article-meta">
+                        <span>18 min read</span>
+                        <span class="dot"></span>
+                        <span>May 2026</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="blog-cta">
+            <h3>✨ Stop Writing. Start Generating.</h3>
+            <p>Use AI to create all your e-commerce content in seconds — descriptions, ads, SEO, emails, and more.</p>
+            <a href="login.html" class="btn">Try EcomGenius Free →</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            © 2026 EcomGenius. <a href="index.html">Home</a> · <a href="blog.html">Blog</a> · <a href="free-prompts.html">Free Prompts</a>
+        </div>
+    </footer>
+    <script src="js/analytics.js"></script>
+</body>
+</html>

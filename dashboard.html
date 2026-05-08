@@ -12,8 +12,48 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-    <!-- PayPal SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
+    <!-- Gumroad Overlay -->
+    <script src="https://gumroad.com/js/gumroad.js"></script>
+    <style>
+    /* === License Key Modal === */
+    .license-modal { display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.7); backdrop-filter:blur(6px); align-items:center; justify-content:center; }
+    .license-modal.active { display:flex; }
+    .license-card { background:#111119; border:1px solid #1c1c2e; border-radius:16px; padding:36px 32px; max-width:460px; width:90%; position:relative; }
+    .license-card h3 { font-size:1.3rem; font-weight:700; margin-bottom:6px; }
+    .license-card .sub { color:#8888a8; font-size:0.88rem; margin-bottom:24px; }
+    .license-card .form-input { width:100%; padding:12px 14px; border-radius:10px; border:1px solid #1c1c2e; background:rgba(255,255,255,0.03); color:#f0f0fa; font-family:'Inter',sans-serif; font-size:0.95rem; letter-spacing:0.05em; outline:none; transition:border 0.2s; }
+    .license-card .form-input:focus { border-color:#8b5cf6; }
+    .license-card .form-input::placeholder { color:#55556a; }
+    .license-hint { font-size:0.78rem; color:#55556a; margin-top:8px; }
+    .license-hint a { color:#a78bfa; }
+    .license-result { display:none; margin-top:16px; padding:12px 16px; border-radius:10px; font-size:0.85rem; font-weight:600; }
+    .license-result.success { display:block; background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.2); color:#34d399; }
+    .license-result.error { display:block; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.2); color:#f87171; }
+    .btn-verify { width:100%; padding:12px; border-radius:10px; border:none; background:linear-gradient(135deg,#8b5cf6,#06b6d4); color:#fff; font-family:'Inter',sans-serif; font-size:0.95rem; font-weight:700; cursor:pointer; transition:all 0.2s; margin-top:16px; }
+    .btn-verify:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(139,92,246,0.3); }
+    .btn-verify:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+    .license-close { position:absolute; top:16px; right:16px; background:none; border:none; color:#8888a8; font-size:1.3rem; cursor:pointer; }
+
+    /* === PRO Badge === */
+    .pro-badge { display:inline-block; padding:1px 6px; border-radius:4px; font-size:0.6rem; font-weight:700; background:linear-gradient(135deg,#f59e0b,#ef4444); color:#fff; margin-left:6px; vertical-align:middle; letter-spacing:0.03em; }
+    .lock-badge { opacity:0.5; font-size:0.75rem; margin-left:4px; }
+
+    /* === Plan Status in sidebar === */
+    .plan-pro { background:linear-gradient(135deg,rgba(139,92,246,0.15),rgba(6,182,212,0.15)) !important; border-color:rgba(139,92,246,0.3) !important; }
+    .plan-pro .usage-label { color:#a78bfa !important; }
+
+    /* === Upgrade Prompt Overlay === */
+    .upgrade-overlay { display:none; position:absolute; inset:0; z-index:10; background:rgba(7,7,14,0.85); backdrop-filter:blur(8px); border-radius:12px; flex-direction:column; align-items:center; justify-content:center; gap:16px; text-align:center; padding:32px; }
+    .upgrade-overlay.show { display:flex; }
+    .upgrade-overlay .lock-icon { font-size:3rem; }
+    .upgrade-overlay h4 { font-size:1.1rem; font-weight:700; color:#f0f0fa; }
+    .upgrade-overlay p { font-size:0.88rem; color:#8888a8; max-width:300px; }
+    .upgrade-overlay .btn-upgrade-now { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,#8b5cf6,#06b6d4); color:#fff; font-weight:700; cursor:pointer; font-size:0.9rem; transition:all 0.2s; text-decoration:none; }
+    .upgrade-overlay .btn-upgrade-now:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(139,92,246,0.3); }
+
+    /* input panel relative for overlay */
+    .input-panel { position:relative; }
+    </style>
 </head>
 <body>
     <!-- Sidebar -->
@@ -38,18 +78,22 @@
                 <button class="sidebar-btn" data-tool="seo" id="tool-seo">
                     <span class="sidebar-icon">🔍</span>
                     <span>SEO Optimizer</span>
+                    <span class="pro-badge">PRO</span>
                 </button>
                 <button class="sidebar-btn" data-tool="emails" id="tool-emails">
                     <span class="sidebar-icon">📧</span>
                     <span>Email Sequences</span>
+                    <span class="pro-badge">PRO</span>
                 </button>
                 <button class="sidebar-btn" data-tool="brandname" id="tool-brandname">
                     <span class="sidebar-icon">💡</span>
                     <span>Brand Name Gen</span>
+                    <span class="pro-badge">PRO</span>
                 </button>
                 <button class="sidebar-btn" data-tool="social" id="tool-social">
                     <span class="sidebar-icon">📱</span>
                     <span>Social Media</span>
+                    <span class="pro-badge">PRO</span>
                 </button>
             </div>
         </nav>
@@ -62,14 +106,30 @@
                     <div class="user-email" id="userEmail">user@email.com</div>
                 </div>
             </div>
-            <div class="usage-card">
-                <div class="usage-label" id="planLabel">Free Plan — <span id="usageCount">0</span>/5 used</div>
+            <div class="usage-card" id="usageCard">
+                <div class="usage-label" id="planLabel">Free Plan — <span id="usageCount">0</span>/5 used this month</div>
                 <div class="usage-bar"><div class="usage-fill" id="usageFill" style="width: 0%"></div></div>
-                <a href="#" class="upgrade-link" id="upgradeBtn" onclick="showUpgradeModal()">Upgrade to Pro →</a>
+                <a href="#" class="upgrade-link" id="upgradeBtn" onclick="openUpgradeFlow()">🔑 Activate License Key →</a>
             </div>
             <button class="btn-logout" id="logoutBtn" onclick="logoutUser()" style="display:none;">🚪 Sign Out</button>
         </div>
     </aside>
+
+    <!-- License Key Modal -->
+    <div class="license-modal" id="licenseModal">
+        <div class="license-card">
+            <button class="license-close" onclick="closeLicenseModal()">×</button>
+            <h3>🔑 Activate Pro License</h3>
+            <p class="sub">Enter your Gumroad license key to unlock all Pro features and unlimited generations.</p>
+            <input type="text" class="form-input" id="licenseKeyInput" placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX">
+            <p class="license-hint">Don't have a key? <a href="https://abdelrahman375.gumroad.com/l/tqytir" target="_blank">Get EcomGenius Pro →</a></p>
+            <div class="license-result" id="licenseResult"></div>
+            <button class="btn-verify" id="verifyBtn" onclick="verifyLicense()">
+                <span id="verifyText">Verify & Activate</span>
+                <span id="verifyLoader" style="display:none;">⏳ Verifying...</span>
+            </button>
+        </div>
+    </div>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -113,6 +173,14 @@
         <div class="content-area">
             <!-- Input Panel -->
             <div class="panel input-panel">
+                <!-- Upgrade Overlay (shown when trying to use PRO tool on Free) -->
+                <div class="upgrade-overlay" id="upgradeOverlay">
+                    <div class="lock-icon">🔒</div>
+                    <h4>Pro Feature</h4>
+                    <p>This tool requires an EcomGenius Pro subscription. Unlock all 6 tools + unlimited generations.</p>
+                    <a href="https://abdelrahman375.gumroad.com/l/tqytir" target="_blank" class="btn-upgrade-now" onclick="if(typeof Analytics!=='undefined')Analytics.trackUpgradeClick('tool_gate')">Get Pro — $9/mo</a>
+                    <a href="#" onclick="openLicenseModal();return false;" style="color:#a78bfa;font-size:0.85rem;margin-top:8px;">Already have a license key?</a>
+                </div>
                 <div class="panel-header">
                     <h3 id="inputTitle">Product Details</h3>
                 </div>
@@ -203,31 +271,8 @@
         </div>
     </main>
 
-    <!-- Upgrade Modal -->
-    <div class="modal-overlay" id="upgradeModal">
-        <div class="modal" style="max-width:480px;">
-            <div class="modal-header">
-                <h3>🚀 Upgrade to Pro</h3>
-                <button class="modal-close" onclick="hideUpgradeModal()">×</button>
-            </div>
-            <div class="modal-body">
-                <div style="text-align:center;margin-bottom:20px;">
-                    <div style="font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,#8b5cf6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$29<span style="font-size:1rem;">/mo</span></div>
-                    <p style="color:#8888a8;font-size:0.88rem;margin-top:6px;">Unlimited AI generations</p>
-                </div>
-                <ul style="list-style:none;margin-bottom:24px;">
-                    <li style="color:#8888a8;padding:6px 0;font-size:0.88rem;">✅ Unlimited content generation</li>
-                    <li style="color:#8888a8;padding:6px 0;font-size:0.88rem;">✅ All 6 AI tools</li>
-                    <li style="color:#8888a8;padding:6px 0;font-size:0.88rem;">✅ GPT-4o & Claude 3.5 access</li>
-                    <li style="color:#8888a8;padding:6px 0;font-size:0.88rem;">✅ Priority support</li>
-                    <li style="color:#8888a8;padding:6px 0;font-size:0.88rem;">✅ Export & download</li>
-                </ul>
-                <div id="paypal-button-container"></div>
-            </div>
-        </div>
-    </div>
-
     <script src="js/firebase-config.js"></script>
+    <script src="js/analytics.js"></script>
     <script src="js/app.js"></script>
     <script>
     // === AUTH GUARD ===
@@ -249,39 +294,114 @@
         firebase.auth().signOut().then(() => window.location.href = 'login.html');
     }
 
-    function showUpgradeModal() {
-        document.getElementById('upgradeModal').classList.add('active');
-        // Render PayPal button
-        const container = document.getElementById('paypal-button-container');
-        if (container.children.length === 0) {
-            paypal.Buttons({
-                style: { layout: 'vertical', color: 'blue', shape: 'rect', label: 'subscribe' },
-                createOrder: function(data, actions) {
-                    return actions.order.create({
-                        purchase_units: [{ amount: { value: '29.00', currency_code: 'USD' }, description: 'EcomGenius Pro — Monthly' }]
-                    });
-                },
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(details) {
-                        alert('Payment successful! Welcome to Pro, ' + details.payer.name.given_name + '!');
-                        localStorage.setItem('ecomgenius_plan', 'pro');
-                        hideUpgradeModal();
-                        location.reload();
-                    });
-                },
-                onError: function(err) {
-                    alert('Payment failed. Please try again.');
-                }
-            }).render('#paypal-button-container');
+    // === LICENSE MODAL ===
+    function openLicenseModal() {
+        document.getElementById('licenseModal').classList.add('active');
+        document.getElementById('licenseResult').style.display = 'none';
+        document.getElementById('licenseResult').className = 'license-result';
+    }
+    function closeLicenseModal() {
+        document.getElementById('licenseModal').classList.remove('active');
+    }
+    function openUpgradeFlow() {
+        event.preventDefault();
+        if (typeof Analytics !== 'undefined') Analytics.trackUpgradeClick('sidebar');
+        openLicenseModal();
+    }
+
+    async function verifyLicense() {
+        const key = document.getElementById('licenseKeyInput').value.trim();
+        const resultEl = document.getElementById('licenseResult');
+        if (!key) {
+            resultEl.className = 'license-result error';
+            resultEl.textContent = 'Please enter a license key.';
+            resultEl.style.display = 'block';
+            return;
+        }
+
+        document.getElementById('verifyText').style.display = 'none';
+        document.getElementById('verifyLoader').style.display = '';
+        document.getElementById('verifyBtn').disabled = true;
+
+        try {
+            // Try Pro product first, then Agency
+            let res = await fetch('/api/verify-license', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ license_key: key, product_permalink: 'tqytir' })
+            });
+            let data = await res.json();
+
+            if (!data.success) {
+                // Try agency product
+                res = await fetch('/api/verify-license', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ license_key: key, product_permalink: 'pyuzxt' })
+                });
+                data = await res.json();
+                if (data.success) data.plan = 'agency';
+            }
+
+            if (data.success) {
+                // Save license
+                localStorage.setItem('ecomgenius_license', key);
+                localStorage.setItem('ecomgenius_plan', data.plan || 'pro');
+                localStorage.setItem('ecomgenius_license_verified', Date.now().toString());
+
+                resultEl.className = 'license-result success';
+                resultEl.textContent = `✅ License activated! You now have ${data.plan === 'agency' ? 'Agency' : 'Pro'} access.`;
+                resultEl.style.display = 'block';
+
+                if (typeof Analytics !== 'undefined') Analytics.trackLicenseActivation(data.plan);
+
+                // Update UI after short delay
+                setTimeout(() => {
+                    closeLicenseModal();
+                    updatePlanUI();
+                }, 1500);
+            } else {
+                resultEl.className = 'license-result error';
+                resultEl.textContent = '❌ ' + (data.message || 'Invalid license key. Please check and try again.');
+                resultEl.style.display = 'block';
+            }
+        } catch (err) {
+            resultEl.className = 'license-result error';
+            resultEl.textContent = '❌ Verification failed. Please check your connection and try again.';
+            resultEl.style.display = 'block';
+        } finally {
+            document.getElementById('verifyText').style.display = '';
+            document.getElementById('verifyLoader').style.display = 'none';
+            document.getElementById('verifyBtn').disabled = false;
         }
     }
 
-    function hideUpgradeModal() {
-        document.getElementById('upgradeModal').classList.remove('active');
+    // === PLAN UI UPDATE ===
+    function updatePlanUI() {
+        const plan = localStorage.getItem('ecomgenius_plan') || 'free';
+        const isPro = plan === 'pro' || plan === 'agency';
+        const card = document.getElementById('usageCard');
+        const label = document.getElementById('planLabel');
+        const upgradeBtn = document.getElementById('upgradeBtn');
+        const proBadges = document.querySelectorAll('.pro-badge');
+
+        if (isPro) {
+            card.classList.add('plan-pro');
+            label.innerHTML = `⚡ ${plan === 'agency' ? 'Agency' : 'Pro'} Plan — <span style="color:#34d399;">Unlimited</span>`;
+            upgradeBtn.textContent = '✅ Pro Active';
+            upgradeBtn.onclick = null;
+            upgradeBtn.style.color = '#34d399';
+            proBadges.forEach(b => b.style.display = 'none');
+            // Hide upgrade overlay
+            document.getElementById('upgradeOverlay').classList.remove('show');
+        } else {
+            card.classList.remove('plan-pro');
+            proBadges.forEach(b => b.style.display = '');
+        }
     }
-    document.getElementById('upgradeModal').addEventListener('click', function(e) {
-        if (e.target === this) hideUpgradeModal();
-    });
+
+    // Init plan UI
+    updatePlanUI();
     </script>
 </body>
 </html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20 Free E-Commerce AI Prompts — EcomGenius</title>
+<meta name="description" content="Download 20 proven AI prompts for product descriptions, Facebook ads, email marketing, and more. Free for e-commerce sellers.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { 
+        --bg: #0a0a10; --card: #12121a; --border: #1e1e30; 
+        --text: #f0f0f8; --muted: #8888a8; --primary: #a855f7; 
+        --secondary: #06b6d4; --accent: #f59e0b; --dim: #55556a;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; padding: 40px 20px; }
+    .container { max-width: 800px; margin: 0 auto; }
+    .header-badge { display: inline-block; background: rgba(168, 85, 247, 0.15); color: var(--primary); padding: 4px 12px; border-radius: 100px; font-size: 0.85rem; font-weight: 600; margin-bottom: 16px; }
+    h1 { font-size: 2.8rem; font-weight: 800; text-align: center; margin-bottom: 16px; line-height: 1.2; background: linear-gradient(135deg, #a855f7, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .subtitle { text-align: center; color: var(--muted); margin-bottom: 40px; font-size: 1.15rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+    h2 { font-size: 1.4rem; font-weight: 700; margin: 40px 0 16px; padding: 12px 18px; background: var(--card); border-left: 3px solid var(--primary); border-radius: 0 8px 8px 0; }
+    .prompt { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin-bottom: 12px; font-size: 0.95rem; color: var(--muted); cursor: pointer; transition: all 0.2s; position: relative; }
+    .prompt:hover { border-color: var(--primary); transform: translateY(-2px); }
+    .prompt strong { color: var(--text); font-weight: 600; display: inline-block; margin-bottom: 8px; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 100px; font-size: 0.7rem; font-weight: 600; margin-left: 8px; }
+    .badge-hot { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+    
+    /* === LOCKED SECTION === */
+    .locked-section { position: relative; }
+    .locked-section .prompt { filter: blur(5px); pointer-events: none; user-select: none; }
+    .locked-section h2 { filter: blur(3px); }
+    
+    .unlock-gate { position: relative; z-index: 10; margin: -60px 0 30px; padding: 40px 32px; text-align: center; background: linear-gradient(180deg, rgba(10,10,16,0) 0%, var(--bg) 15%, var(--bg) 100%); }
+    .unlock-card { max-width: 500px; margin: 0 auto; background: var(--card); border: 1px solid var(--primary); border-radius: 16px; padding: 36px 32px; box-shadow: 0 10px 40px -10px rgba(168, 85, 247, 0.25); }
+    .unlock-card .lock-icon { font-size: 3rem; margin-bottom: 12px; }
+    .unlock-card h3 { font-size: 1.4rem; margin-bottom: 8px; }
+    .unlock-card p { color: var(--muted); margin-bottom: 20px; font-size: 0.95rem; }
+    .unlock-card .email-form { display: flex; gap: 10px; }
+    .unlock-card .email-input { flex: 1; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); background: rgba(255,255,255,0.03); color: var(--text); font-family: 'Inter', sans-serif; font-size: 0.95rem; outline: none; }
+    .unlock-card .email-input:focus { border-color: var(--primary); }
+    .unlock-card .email-input::placeholder { color: var(--dim); }
+    .unlock-card .btn-unlock { padding: 12px 24px; border-radius: 10px; border: none; background: linear-gradient(135deg, #a855f7, #06b6d4); color: #fff; font-weight: 700; cursor: pointer; font-size: 0.95rem; transition: all 0.2s; white-space: nowrap; }
+    .unlock-card .btn-unlock:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(168,85,247,0.3); }
+    .unlock-card .privacy { font-size: 0.75rem; color: var(--dim); margin-top: 12px; }
+
+    /* === UNLOCKED STATE === */
+    .unlocked .locked-section .prompt { filter: none; pointer-events: auto; user-select: auto; }
+    .unlocked .locked-section h2 { filter: none; }
+    .unlocked .unlock-gate { display: none; }
+
+    /* Upsell */
+    .upsell-box { margin: 60px 0; padding: 40px; text-align: center; background: linear-gradient(180deg, var(--card) 0%, rgba(18, 18, 26, 0.5) 100%); border: 1px solid var(--primary); border-radius: 16px; box-shadow: 0 10px 40px -10px rgba(168, 85, 247, 0.2); }
+    .upsell-box h3 { font-size: 1.8rem; margin-bottom: 16px; }
+    .upsell-box p { color: var(--muted); margin-bottom: 24px; font-size: 1.1rem; }
+    .btn-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 28px; border-radius: 8px; font-weight: 600; text-decoration: none; transition: all 0.2s; font-size: 1rem; }
+    .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 14px 0 rgba(168, 85, 247, 0.39); }
+    .btn-primary:hover { background: #9333ea; transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-outline:hover { background: var(--border); }
+    .footer { text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--border); }
+    .footer a { color: var(--primary); text-decoration: none; }
+    .toast { position: fixed; bottom: 20px; right: 20px; background: var(--primary); color: white; padding: 12px 24px; border-radius: 8px; font-weight: 600; transform: translateY(100px); opacity: 0; transition: all 0.3s; z-index: 100; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    @media (max-width:600px) { h1 { font-size:1.8rem; } .unlock-card .email-form { flex-direction:column; } }
+</style>
+</head>
+<body>
+<div class="container" id="mainContainer">
+    <div style="text-align: center;">
+        <div class="header-badge">🎁 Free Gift from EcomGenius</div>
+    </div>
+    <h1>20 High-Converting AI Prompts for E-Commerce</h1>
+    <p class="subtitle">Steal these 20 proven prompts to write better product descriptions, Facebook ads, and emails. Click any prompt to copy it.</p>
+
+    <!-- FREE SECTION (visible to all) -->
+    <h2>📝 Product Descriptions</h2>
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>1. The AIDA Framework Description</strong><br>
+        Write a compelling product description for [PRODUCT] targeting [AUDIENCE]. Use the AIDA framework (Attention, Interest, Desire, Action). Include 3 key benefits, emotional triggers, and a clear CTA. Keep it under 150 words. <span class="badge badge-hot">HOT</span>
+    </div>
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>2. SEO-Optimized Product Copy</strong><br>
+        Write an SEO-optimized product description for [PRODUCT] targeting the keyword "[KEYWORD]". Include the keyword 3-4 times naturally. Add a meta description (max 155 chars) and 3 H2 subheadings.
+    </div>
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>3. The Apple-Style Minimalist</strong><br>
+        Write a product description for [PRODUCT] in the style of Apple — minimal, elegant, and benefit-focused. Use short punchy sentences, highlight premium craftsmanship, and focus heavily on user transformation.
+    </div>
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>4. Amazon Bullet Points</strong><br>
+        Generate a 5-bullet-point product description for [PRODUCT] optimized for Amazon listings. Each bullet should start with a capitalized benefit, followed by a feature explanation. Include search-friendly long-tail keywords.
+    </div>
+
+    <h2>📢 Facebook & Google Ads</h2>
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>5. Scroll-Stopping FB Ad</strong><br>
+        Write 3 Facebook ad variations for [PRODUCT]. Include: a hook/headline (max 40 chars), primary text (125 words focusing on problem-agitation-solution), a short description (30 words), and a strong CTA button suggestion. <span class="badge badge-hot">HOT</span>
+    </div>
+
+    <!-- ========== EMAIL GATE ========== -->
+    <div class="unlock-gate" id="unlockGate">
+        <div class="unlock-card">
+            <div class="lock-icon">🔓</div>
+            <h3>Unlock All 20 Prompts</h3>
+            <p>Enter your email to instantly unlock the remaining 15 prompts — including email sequences, TikTok scripts, and the powerful MEGA PROMPT.</p>
+            <div class="email-form">
+                <input type="email" class="email-input" id="gateEmail" placeholder="you@example.com">
+                <button class="btn-unlock" id="unlockBtn" onclick="unlockPrompts()">Unlock Free →</button>
+            </div>
+            <p class="privacy">🔒 No spam. Unsubscribe anytime. We respect your privacy.</p>
+        </div>
+    </div>
+
+    <!-- LOCKED SECTION -->
+    <div class="locked-section" id="lockedSection">
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>6. Google Search Ads (Split Test)</strong><br>
+        Write 5 Google Search ad variations for [PRODUCT] targeting the keyword "[KEYWORD]". For each ad provide: Headline 1, Headline 2, Headline 3 (30 chars each), Description 1, and Description 2 (90 chars each). Focus on high CTR.
+    </div>
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>7. Retargeting Ad Copy</strong><br>
+        Write a Facebook retargeting ad for people who added [PRODUCT] to their cart but didn't buy. Use urgency, highlight social proof/reviews, and include a special 15% off discount code to push them over the edge.
+    </div>
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>8. TikTok Hook Script</strong><br>
+        Write a 30-second TikTok video ad script for [PRODUCT]. The first 3 seconds must be a highly engaging visual hook. Follow the format: Hook -> Introduce Problem -> Introduce Product as Solution -> Show Result -> CTA.
+    </div>
+
+    <h2>📧 Email Marketing Sequences</h2>
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>9. The Perfect Welcome Email</strong><br>
+        Write the first email of a welcome sequence for a new subscriber to my [NICHE] store. Introduce the brand story, highlight our mission, and provide a 10% welcome discount code. Tone should be warm and inviting.
+    </div>
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>10. Abandoned Cart Recovery</strong><br>
+        Write a 3-email abandoned cart sequence. Email 1 (1hr later): Gentle reminder. Email 2 (24hr later): Social proof + FAQ overcoming objections. Email 3 (48hr later): Final discount offer with strict urgency. <span class="badge badge-hot">HOT</span>
+    </div>
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>11. Flash Sale Announcement</strong><br>
+        Write an urgent, scarcity-driven email announcing a 48-hour flash sale for [PRODUCT]. Emphasize that stock is extremely limited. Provide a curiosity-inducing subject line and preheader text.
+    </div>
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>12. Win-Back Campaign</strong><br>
+        Write a "we miss you" win-back email for customers who haven't purchased in 90 days. Use an emotional hook, show them what's new, and offer a "VIP Returning Customer" exclusive discount.
+    </div>
+
+    <h2>📱 Social Media & Content</h2>
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>13. Instagram Carousel Concept</strong><br>
+        Create an educational 5-slide Instagram carousel concept about [NICHE/TOPIC] that seamlessly pitches [PRODUCT] on the last slide.
+    </div>
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>14. Twitter / X Thread</strong><br>
+        Write a highly engaging Twitter thread (5-7 tweets) telling the founding story behind [BRAND/PRODUCT]. Start with a polarizing hook.
+    </div>
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>15. UGC Request Email</strong><br>
+        Write an email to recent buyers asking them to submit a video review (UGC). Offer a $20 gift card. Make instructions simple.
+    </div>
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>16. Viral TikTok Idea</strong><br>
+        Give me 3 viral TikTok video ideas for selling [PRODUCT] without looking like an ad. Focus on trending formats.
+    </div>
+
+    <h2>💡 Strategy & Conversion</h2>
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>17. Brand Name Generator</strong><br>
+        Generate 10 unique, memorable brand name ideas for a [NICHE] business targeting [AUDIENCE]. Provide a tagline for each.
+    </div>
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>18. Competitor Crusher</strong><br>
+        My main competitor is [COMPETITOR]. Create a counter-positioning strategy for my brand that highlights our unique advantages.
+    </div>
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>19. High-Converting CTAs</strong><br>
+        Generate 10 unique Call-To-Action button texts for my [PRODUCT] landing page. Use urgency, curiosity, and benefit-driven language.
+    </div>
+    <div class="prompt" onclick="copyPrompt(this)">
+        <strong>20. The MEGA PROMPT</strong><br>
+        "You are a world-class e-commerce copywriter. I'm selling [PRODUCT] at [PRICE] targeting [AUDIENCE]. Generate: 1) Product title, 2) Meta description, 3) Short description, 4) 3 bullet points, 5) FB ad copy, 6) IG caption with hashtags, 7) Email subject line." <span class="badge badge-hot">HOT</span>
+    </div>
+    </div>
+
+    <!-- UPSELL -->
+    <div class="upsell-box">
+        <div style="font-size: 3rem; margin-bottom: 10px;">🚀</div>
+        <h3>Loved these 20 Prompts? Get 180+ More!</h3>
+        <p>Unlock the ultimate arsenal of 200+ battle-tested AI prompts for E-Commerce.</p>
+        <div class="btn-group">
+            <a href="https://abdelrahman375.gumroad.com/l/rxhhqo" class="btn btn-primary" target="_blank">Get The Full Pack ($19)</a>
+        </div>
+        <hr style="border: 0; border-top: 1px solid var(--border); margin: 30px 0;">
+        <h3>Tired of copy-pasting prompts?</h3>
+        <p>Use our AI-Powered platform where all these frameworks are built into the engine.</p>
+        <div class="btn-group">
+            <a href="index.html" class="btn btn-outline">Try EcomGenius Free</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2026 EcomGenius. All rights reserved. <br>
+        <a href="index.html">Go to Homepage</a>
+    </div>
+</div>
+
+<div class="toast" id="toast">📋 Prompt Copied!</div>
+
+<script src="https://gumroad.com/js/gumroad.js"></script>
+<script src="js/analytics.js"></script>
+<script>
+    // Check if already unlocked
+    if (localStorage.getItem('ecomgenius_prompts_unlocked') === 'true') {
+        document.getElementById('mainContainer').classList.add('unlocked');
+    }
+
+    function unlockPrompts() {
+        const email = document.getElementById('gateEmail').value.trim();
+        if (!email || !email.includes('@')) {
+            alert('Please enter a valid email address.');
+            return;
+        }
+        
+        // Store email (in production, send to your email service)
+        localStorage.setItem('ecomgenius_prompts_unlocked', 'true');
+        localStorage.setItem('ecomgenius_lead_email', email);
+        
+        // Track
+        if (typeof Analytics !== 'undefined') Analytics.trackEmailSignup('free_prompts');
+        
+        // Unlock
+        document.getElementById('mainContainer').classList.add('unlocked');
+        
+        // Show success toast
+        const toast = document.getElementById('toast');
+        toast.textContent = '✅ Unlocked! All 20 prompts are now available.';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function copyPrompt(element) {
+        let text = element.innerText;
+        text = text.replace(/HOT$/, '').trim();
+        
+        navigator.clipboard.writeText(text).then(() => {
+            const originalBg = element.style.background;
+            element.style.background = 'rgba(168, 85, 247, 0.2)';
+            element.style.borderColor = '#a855f7';
+            
+            const toast = document.getElementById('toast');
+            toast.textContent = '📋 Prompt Copied!';
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                element.style.background = originalBg;
+                element.style.borderColor = 'var(--border)';
+                toast.classList.remove('show');
+            }, 1500);
+        });
+    }
+</script>
+</body>
+</html>
