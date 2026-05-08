@@ -9,6 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
 </head>
 <body>
     <!-- Sidebar -->
@@ -49,11 +54,20 @@
             </div>
         </nav>
         <div class="sidebar-footer">
-            <div class="usage-card">
-                <div class="usage-label">Free Plan — <span id="usageCount">0</span>/5 used</div>
-                <div class="usage-bar"><div class="usage-fill" id="usageFill" style="width: 0%"></div></div>
-                <a href="#" class="upgrade-link">Upgrade to Pro →</a>
+            <!-- User Profile -->
+            <div class="user-profile" id="userProfile" style="display:none;">
+                <div class="user-avatar" id="userAvatar">U</div>
+                <div class="user-info">
+                    <div class="user-name" id="userName">User</div>
+                    <div class="user-email" id="userEmail">user@email.com</div>
+                </div>
             </div>
+            <div class="usage-card">
+                <div class="usage-label" id="planLabel">Free Plan — <span id="usageCount">0</span>/5 used</div>
+                <div class="usage-bar"><div class="usage-fill" id="usageFill" style="width: 0%"></div></div>
+                <a href="#" class="upgrade-link" id="upgradeBtn" onclick="showUpgradeModal()">Upgrade to Pro →</a>
+            </div>
+            <button class="btn-logout" id="logoutBtn" onclick="logoutUser()" style="display:none;">🚪 Sign Out</button>
         </div>
     </aside>
 
@@ -189,6 +203,85 @@
         </div>
     </main>
 
+    <!-- Upgrade Modal -->
+    <div class="modal-overlay" id="upgradeModal">
+        <div class="modal" style="max-width:480px;">
+            <div class="modal-header">
+                <h3>🚀 Upgrade to Pro</h3>
+                <button class="modal-close" onclick="hideUpgradeModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div style="text-align:center;margin-bottom:20px;">
+                    <div style="font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,#8b5cf6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$29<span style="font-size:1rem;">/mo</span></div>
+                    <p style="color:#8888a8;font-size:0.88rem;margin-top:6px;">Unlimited AI generations</p>
+                </div>
+                <ul style="list-style:none;margin-bottom:24px;">
+                    <li style="color:#8888a8;padding:6px 0;font-size:0.88rem;">✅ Unlimited content generation</li>
+                    <li style="color:#8888a8;padding:6px 0;font-size:0.88rem;">✅ All 6 AI tools</li>
+                    <li style="color:#8888a8;padding:6px 0;font-size:0.88rem;">✅ GPT-4o & Claude 3.5 access</li>
+                    <li style="color:#8888a8;padding:6px 0;font-size:0.88rem;">✅ Priority support</li>
+                    <li style="color:#8888a8;padding:6px 0;font-size:0.88rem;">✅ Export & download</li>
+                </ul>
+                <div id="paypal-button-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/firebase-config.js"></script>
     <script src="js/app.js"></script>
+    <script>
+    // === AUTH GUARD ===
+    firebase.auth().onAuthStateChanged(user => {
+        if (!user) {
+            window.location.href = 'login.html';
+            return;
+        }
+        // Show user info
+        document.getElementById('userProfile').style.display = 'flex';
+        document.getElementById('logoutBtn').style.display = '';
+        document.getElementById('userName').textContent = user.displayName || 'User';
+        document.getElementById('userEmail').textContent = user.email;
+        const initials = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
+        document.getElementById('userAvatar').textContent = initials;
+    });
+
+    function logoutUser() {
+        firebase.auth().signOut().then(() => window.location.href = 'login.html');
+    }
+
+    function showUpgradeModal() {
+        document.getElementById('upgradeModal').classList.add('active');
+        // Render PayPal button
+        const container = document.getElementById('paypal-button-container');
+        if (container.children.length === 0) {
+            paypal.Buttons({
+                style: { layout: 'vertical', color: 'blue', shape: 'rect', label: 'subscribe' },
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{ amount: { value: '29.00', currency_code: 'USD' }, description: 'EcomGenius Pro — Monthly' }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        alert('Payment successful! Welcome to Pro, ' + details.payer.name.given_name + '!');
+                        localStorage.setItem('ecomgenius_plan', 'pro');
+                        hideUpgradeModal();
+                        location.reload();
+                    });
+                },
+                onError: function(err) {
+                    alert('Payment failed. Please try again.');
+                }
+            }).render('#paypal-button-container');
+        }
+    }
+
+    function hideUpgradeModal() {
+        document.getElementById('upgradeModal').classList.remove('active');
+    }
+    document.getElementById('upgradeModal').addEventListener('click', function(e) {
+        if (e.target === this) hideUpgradeModal();
+    });
+    </script>
 </body>
 </html>
