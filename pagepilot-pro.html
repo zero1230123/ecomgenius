@@ -252,16 +252,14 @@ body {
 </div>
 
 <!-- PayPal SDK -->
-<script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AZyhb6bGCyphoJWRkl1nMgJTlnGE8UTLbc2XFfHcEFdyVxNEldFqtrq3FihNjtcbQDdJf6emQxNhBBKU&currency=USD" data-sdk-integration-source="button-factory"></script>
 
 <script>
 // ═══════════════════════════════════════
 // CONFIGURATION — Replace with your PayPal details
 // ═══════════════════════════════════════
 const PAYPAL_CONFIG = {
-  // Monthly subscription plan ID from PayPal Dashboard
-  MONTHLY_PLAN_ID: 'YOUR_PAYPAL_PLAN_ID',
-  // One-time product price
+  MONTHLY_PRICE: '4.99',
   ONETIME_PRICE: '29.99'
 };
 
@@ -319,42 +317,38 @@ function copyKey() {
 // PAYPAL SUBSCRIPTION BUTTONS
 // ═══════════════════════════════════════
 if (typeof paypal !== 'undefined') {
-  // Monthly Subscription
+  // Monthly Payment via PayPal
   paypal.Buttons({
     style: {
       shape: 'rect',
       color: 'blue',
       layout: 'vertical',
-      label: 'subscribe'
+      label: 'pay'
     },
-    createSubscription: function(data, actions) {
-      return actions.subscription.create({
-        plan_id: PAYPAL_CONFIG.MONTHLY_PLAN_ID
+    createOrder: function(data, actions) {
+      return actions.order.create({
+        purchase_units: [{
+          description: 'PagePilot AI Pro — Monthly Access',
+          amount: { currency_code: 'USD', value: PAYPAL_CONFIG.MONTHLY_PRICE }
+        }]
       });
     },
     onApprove: function(data, actions) {
-      console.log('Subscription approved:', data.subscriptionID);
-      showLicenseKey(data.subscriptionID);
+      return actions.order.capture().then(function(details) {
+        console.log('Payment captured:', details.id);
+        showLicenseKey(details.id);
+      });
     },
     onError: function(err) {
       console.error('PayPal error:', err);
-      // Fallback: show manual payment option
-      alert('PayPal is not configured yet. Use manual activation below.');
+      alert('Payment failed. Please try again.');
     }
   }).render('#paypal-button-container').catch(function(err) {
-    console.log('PayPal render skipped (not configured):', err.message);
-    document.getElementById('paypal-button-container').innerHTML = 
-      '<div style="text-align:center;padding:16px;background:rgba(99,102,241,0.1);border-radius:10px;border:1px dashed rgba(99,102,241,0.3);">' +
-      '<p style="color:#8b95a8;font-size:13px;margin-bottom:8px;">⚙️ PayPal integration ready</p>' +
-      '<p style="color:#5a6478;font-size:11px;">Replace YOUR_PAYPAL_CLIENT_ID in the code with your PayPal Client ID</p>' +
-      '</div>';
+    console.error('PayPal render error:', err);
   });
 } else {
   document.getElementById('paypal-button-container').innerHTML = 
-    '<div style="text-align:center;padding:16px;background:rgba(99,102,241,0.1);border-radius:10px;border:1px dashed rgba(99,102,241,0.3);">' +
-    '<p style="color:#8b95a8;font-size:13px;margin-bottom:8px;">⚙️ PayPal Setup Required</p>' +
-    '<p style="color:#5a6478;font-size:11px;">Replace YOUR_PAYPAL_CLIENT_ID with your PayPal Client ID to enable payments</p>' +
-    '</div>';
+    '<p style="color:#ef4444;text-align:center;">PayPal failed to load. Please refresh.</p>';
 }
 
 // ═══════════════════════════════════════
