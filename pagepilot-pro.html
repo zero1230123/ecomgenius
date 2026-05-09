@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PagePilot AI Pro — Upgrade</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0e1a;
+  --bg2: #111827;
+  --card: #1a1f35;
+  --text: #f0f2f5;
+  --text2: #8b95a8;
+  --muted: #5a6478;
+  --accent: #6366f1;
+  --glow: rgba(99,102,241,0.3);
+  --green: #22c55e;
+  --border: rgba(255,255,255,0.06);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(135deg,#0a0e1a,#111827,#0f172a);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.container { max-width:500px; width:100%; }
+
+/* Header */
+.header { text-align:center; margin-bottom:32px; }
+.logo { font-size:48px; margin-bottom:12px; filter:drop-shadow(0 0 20px var(--glow)); }
+.header h1 { font-size:28px; font-weight:800; margin-bottom:8px; }
+.header h1 span { background:linear-gradient(135deg,#6366f1,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+.header p { color:var(--text2); font-size:15px; }
+
+/* Pricing Card */
+.pricing-card {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:28px;
+  margin-bottom:20px;
+  position:relative;
+  overflow:hidden;
+}
+.pricing-card::before {
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:3px;
+  background:linear-gradient(90deg,#6366f1,#8b5cf6,#a78bfa);
+}
+.plan-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
+.plan-name { font-size:20px; font-weight:700; }
+.plan-price { text-align:right; }
+.plan-price .amount { font-size:36px; font-weight:800; }
+.plan-price .period { font-size:13px; color:var(--text2); }
+
+.features { list-style:none; margin-bottom:24px; }
+.features li { padding:8px 0; font-size:14px; color:var(--text2); display:flex; align-items:center; gap:10px; }
+.features li .check { color:var(--green); font-weight:700; font-size:16px; }
+.features li .cross { color:#ef4444; font-weight:700; font-size:16px; }
+
+.divider { border:none; border-top:1px solid var(--border); margin:20px 0; }
+
+/* PayPal Section */
+.payment-section { margin-bottom:20px; }
+.payment-section h3 { font-size:14px; color:var(--text2); margin-bottom:12px; text-align:center; }
+
+#paypal-button-container { min-height:55px; }
+
+/* One-Time Option */
+.onetime-section { text-align:center; margin-top:16px; }
+.onetime-section p { font-size:12px; color:var(--muted); margin-bottom:8px; }
+.onetime-btn {
+  display:inline-block;
+  padding:12px 24px;
+  background:transparent;
+  border:1px solid var(--border);
+  border-radius:10px;
+  color:var(--text2);
+  font-size:13px;
+  cursor:pointer;
+  transition:0.2s;
+  font-family:inherit;
+}
+.onetime-btn:hover { border-color:var(--accent); color:var(--accent); }
+
+/* License Key Section */
+.license-section {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:28px;
+  text-align:center;
+  display:none;
+}
+.license-section.show { display:block; animation:slideUp 0.5s ease; }
+@keyframes slideUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+.license-section .success-icon { font-size:48px; margin-bottom:12px; }
+.license-section h2 { font-size:20px; margin-bottom:8px; color:var(--green); }
+.license-section p { color:var(--text2); font-size:13px; margin-bottom:16px; }
+.license-key-box {
+  background:var(--bg);
+  border:2px solid var(--accent);
+  border-radius:10px;
+  padding:14px 18px;
+  font-family:'SF Mono',monospace;
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:2px;
+  color:var(--accent);
+  margin-bottom:12px;
+  user-select:all;
+  cursor:pointer;
+}
+.copy-key-btn {
+  background:linear-gradient(135deg,var(--accent),#8b5cf6);
+  color:white;
+  border:none;
+  padding:12px 24px;
+  border-radius:10px;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.3s;
+  font-family:inherit;
+  margin-bottom:12px;
+}
+.copy-key-btn:hover { transform:translateY(-2px); box-shadow:0 8px 25px var(--glow); }
+.instructions { font-size:12px; color:var(--muted); line-height:1.8; }
+.instructions strong { color:var(--text2); }
+
+/* Already have key */
+.activate-section {
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px;
+  margin-top:16px;
+}
+.activate-section h3 { font-size:14px; margin-bottom:10px; }
+.key-input-group { display:flex; gap:8px; }
+.key-input {
+  flex:1;
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:10px 14px;
+  color:var(--text);
+  font-size:13px;
+  font-family:monospace;
+  outline:none;
+}
+.key-input:focus { border-color:var(--accent); }
+.activate-btn {
+  background:var(--accent);
+  color:white;
+  border:none;
+  padding:10px 18px;
+  border-radius:8px;
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
+  font-family:inherit;
+  white-space:nowrap;
+}
+.activate-msg { font-size:12px; margin-top:8px; }
+.activate-msg.success { color:var(--green); }
+.activate-msg.error { color:#ef4444; }
+
+.footer { text-align:center; padding:20px; color:var(--muted); font-size:11px; }
+.footer a { color:var(--accent); text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">🚀</div>
+    <h1>Upgrade to <span>PagePilot Pro</span></h1>
+    <p>Unlimited scans, AI suggestions & more</p>
+  </div>
+
+  <!-- Pricing Card -->
+  <div class="pricing-card" id="pricingCard">
+    <div class="plan-header">
+      <div class="plan-name">Pro Plan</div>
+      <div class="plan-price">
+        <span class="amount">$4.99</span>
+        <div class="period">/month</div>
+      </div>
+    </div>
+
+    <ul class="features">
+      <li><span class="check">✓</span> Unlimited page scans (no daily limit)</li>
+      <li><span class="check">✓</span> AI-powered SEO suggestions</li>
+      <li><span class="check">✓</span> Export reports as PDF</li>
+      <li><span class="check">✓</span> Full tech stack detection</li>
+      <li><span class="check">✓</span> Competitor comparison</li>
+      <li><span class="check">✓</span> Priority support</li>
+    </ul>
+
+    <hr class="divider">
+
+    <!-- PayPal Buttons -->
+    <div class="payment-section">
+      <h3>💳 Pay securely with PayPal</h3>
+      <div id="paypal-button-container"></div>
+    </div>
+
+    <div class="onetime-section">
+      <p>Prefer a one-time payment?</p>
+      <button class="onetime-btn" id="onetimeBtn">💰 Lifetime Access — $29.99</button>
+    </div>
+  </div>
+
+  <!-- License Key (shown after payment) -->
+  <div class="license-section" id="licenseSection">
+    <div class="success-icon">🎉</div>
+    <h2>Payment Successful!</h2>
+    <p>Here's your Pro license key. Copy it and paste it into the extension.</p>
+    <div class="license-key-box" id="licenseKey" onclick="copyKey()">—</div>
+    <button class="copy-key-btn" onclick="copyKey()">📋 Copy License Key</button>
+    <div class="instructions">
+      <strong>How to activate:</strong><br>
+      1. Click the PagePilot AI icon in Chrome<br>
+      2. Go to the ✨ AI tab<br>
+      3. Click "I have a key" and paste your key<br>
+      4. Done! You now have Pro access 🚀
+    </div>
+  </div>
+
+  <!-- Already Have Key -->
+  <div class="activate-section">
+    <h3>🔑 Already have a license key?</h3>
+    <div class="key-input-group">
+      <input type="text" class="key-input" id="existingKey" placeholder="PP-XXXX-XXXX-XXXX">
+      <button class="activate-btn" onclick="activateExistingKey()">Activate</button>
+    </div>
+    <div class="activate-msg" id="activateMsg"></div>
+  </div>
+
+  <div class="footer">
+    <p>PagePilot AI · <a href="https://ecomgenius.vercel.app">EcomGenius</a> · Secure payment via PayPal</p>
+  </div>
+</div>
+
+<!-- PayPal SDK -->
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+
+<script>
+// ═══════════════════════════════════════
+// CONFIGURATION — Replace with your PayPal details
+// ═══════════════════════════════════════
+const PAYPAL_CONFIG = {
+  // Monthly subscription plan ID from PayPal Dashboard
+  MONTHLY_PLAN_ID: 'YOUR_PAYPAL_PLAN_ID',
+  // One-time product price
+  ONETIME_PRICE: '29.99'
+};
+
+// ═══════════════════════════════════════
+// LICENSE KEY GENERATOR
+// ═══════════════════════════════════════
+function generateLicenseKey() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const segments = [];
+  for (let s = 0; s < 3; s++) {
+    let seg = '';
+    for (let i = 0; i < 4; i++) seg += chars[Math.floor(Math.random() * chars.length)];
+    segments.push(seg);
+  }
+  return 'PP-' + segments.join('-');
+}
+
+function showLicenseKey(orderId) {
+  const key = generateLicenseKey();
+  document.getElementById('licenseKey').textContent = key;
+  document.getElementById('licenseSection').classList.add('show');
+  document.getElementById('pricingCard').style.display = 'none';
+
+  // Store the key with order info
+  const purchase = {
+    key: key,
+    orderId: orderId,
+    date: new Date().toISOString(),
+    plan: 'pro_monthly'
+  };
+
+  // Save to localStorage (for reference)
+  const purchases = JSON.parse(localStorage.getItem('pp_purchases') || '[]');
+  purchases.push(purchase);
+  localStorage.setItem('pp_purchases', JSON.stringify(purchases));
+
+  // Also store the valid key
+  const validKeys = JSON.parse(localStorage.getItem('pp_valid_keys') || '[]');
+  validKeys.push(key);
+  localStorage.setItem('pp_valid_keys', JSON.stringify(validKeys));
+
+  console.log('License key generated:', key, 'Order:', orderId);
+}
+
+function copyKey() {
+  const key = document.getElementById('licenseKey').textContent;
+  navigator.clipboard.writeText(key).then(() => {
+    const btn = document.querySelector('.copy-key-btn');
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => btn.textContent = '📋 Copy License Key', 2000);
+  });
+}
+
+// ═══════════════════════════════════════
+// PAYPAL SUBSCRIPTION BUTTONS
+// ═══════════════════════════════════════
+if (typeof paypal !== 'undefined') {
+  // Monthly Subscription
+  paypal.Buttons({
+    style: {
+      shape: 'rect',
+      color: 'blue',
+      layout: 'vertical',
+      label: 'subscribe'
+    },
+    createSubscription: function(data, actions) {
+      return actions.subscription.create({
+        plan_id: PAYPAL_CONFIG.MONTHLY_PLAN_ID
+      });
+    },
+    onApprove: function(data, actions) {
+      console.log('Subscription approved:', data.subscriptionID);
+      showLicenseKey(data.subscriptionID);
+    },
+    onError: function(err) {
+      console.error('PayPal error:', err);
+      // Fallback: show manual payment option
+      alert('PayPal is not configured yet. Use manual activation below.');
+    }
+  }).render('#paypal-button-container').catch(function(err) {
+    console.log('PayPal render skipped (not configured):', err.message);
+    document.getElementById('paypal-button-container').innerHTML = 
+      '<div style="text-align:center;padding:16px;background:rgba(99,102,241,0.1);border-radius:10px;border:1px dashed rgba(99,102,241,0.3);">' +
+      '<p style="color:#8b95a8;font-size:13px;margin-bottom:8px;">⚙️ PayPal integration ready</p>' +
+      '<p style="color:#5a6478;font-size:11px;">Replace YOUR_PAYPAL_CLIENT_ID in the code with your PayPal Client ID</p>' +
+      '</div>';
+  });
+} else {
+  document.getElementById('paypal-button-container').innerHTML = 
+    '<div style="text-align:center;padding:16px;background:rgba(99,102,241,0.1);border-radius:10px;border:1px dashed rgba(99,102,241,0.3);">' +
+    '<p style="color:#8b95a8;font-size:13px;margin-bottom:8px;">⚙️ PayPal Setup Required</p>' +
+    '<p style="color:#5a6478;font-size:11px;">Replace YOUR_PAYPAL_CLIENT_ID with your PayPal Client ID to enable payments</p>' +
+    '</div>';
+}
+
+// ═══════════════════════════════════════
+// ONE-TIME PAYMENT (PayPal)
+// ═══════════════════════════════════════
+document.getElementById('onetimeBtn').addEventListener('click', function() {
+  if (typeof paypal !== 'undefined') {
+    // Clear and render one-time payment buttons
+    document.getElementById('paypal-button-container').innerHTML = '';
+    paypal.Buttons({
+      style: { shape: 'rect', color: 'gold', layout: 'vertical', label: 'pay' },
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            description: 'PagePilot AI Pro — Lifetime Access',
+            amount: { currency_code: 'USD', value: PAYPAL_CONFIG.ONETIME_PRICE }
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          console.log('Payment captured:', details.id);
+          showLicenseKey(details.id);
+        });
+      }
+    }).render('#paypal-button-container');
+  } else {
+    alert('PayPal not configured. Add your Client ID first.');
+  }
+});
+
+// ═══════════════════════════════════════
+// ACTIVATE EXISTING KEY
+// ═══════════════════════════════════════
+function activateExistingKey() {
+  const key = document.getElementById('existingKey').value.trim().toUpperCase();
+  const msg = document.getElementById('activateMsg');
+
+  if (!key) {
+    msg.textContent = '❌ Please enter a license key';
+    msg.className = 'activate-msg error';
+    return;
+  }
+
+  if (key.startsWith('PP-') && key.length >= 14) {
+    msg.textContent = '✅ Valid key! Paste this in the PagePilot extension to activate Pro.';
+    msg.className = 'activate-msg success';
+  } else {
+    msg.textContent = '❌ Invalid key format. Keys start with PP-';
+    msg.className = 'activate-msg error';
+  }
+}
+</script>
+</body>
+</html>
